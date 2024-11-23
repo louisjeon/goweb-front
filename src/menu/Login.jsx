@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { customAxios } from "../customAxios";
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -8,12 +8,18 @@ const Login = () => {
   const navigate = useNavigate();
 
   const login = () => {
-    axios
-      .post("https://bike-web-back.vercel.app/login", {
+    customAxios
+      .post("/login", {
         email,
         password,
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        if (res.status == 200) {
+          localStorage.setItem("accessToken", res.data.accessToken);
+          navigate("/");
+        }
+      })
       .catch((err) => console.log(err));
   };
 
@@ -26,8 +32,8 @@ const Login = () => {
             name="email"
             type="email"
             required
-            onChange={(val) => {
-              setEmail(val);
+            onChange={(e) => {
+              setEmail(e.target.value);
             }}
           />
         </div>
@@ -37,10 +43,10 @@ const Login = () => {
             name="password"
             type="password"
             required
-            onChange={(val) => setPassword(val)}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit" onClick={login}>
+        <button type="button" onClick={login}>
           로그인
         </button>
         <button type="button" onClick={() => navigate("/signup")}>
