@@ -30,11 +30,11 @@ const Post = () => {
   useEffect(() => {
     setTitle("포스트 제목");
     setContent("포스트 내용");
-    setEditTitle(title);
-    setEditContent(content);
   }, []);
 
   const handleEditStart = () => {
+    setEditTitle(title);
+    setEditContent(content);
     setEditMode(true);
   };
 
