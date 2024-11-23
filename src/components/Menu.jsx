@@ -23,9 +23,7 @@ const MenuWrapper = styled.div`
   }
 `;
 
-const Hamburger = styled(GiHamburgerMenu)`
-  
-`
+const Hamburger = styled(GiHamburgerMenu)``;
 
 const Menu = () => {
   return (
@@ -46,15 +44,14 @@ const Menu = () => {
         <h5>뉴스 및 이벤트</h5>
       </a>
 
-      <a href="/support">
-        <h5>고객 지원</h5>
+      <a href="/board">
+        <h5>게시판</h5>
       </a>
 
       <a href="/login">
         <h5>로그인/회원가입</h5>
       </a>
     </MenuWrapper>
-    
   );
 };
 
