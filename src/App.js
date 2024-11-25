@@ -6,12 +6,13 @@ import About from "./menu/About";
 import Products from "./menu/Products";
 import Stores from "./menu/Stores";
 import News from "./menu/News";
-import Support from "./menu/Support";
+import Board from "./menu/Board";
 import Signup from "./menu/Signup";
 import Login from "./menu/Login";
 import Quadstar from "./product/Quadstar";
 import Magicquatturo1 from "./product/Magicquattuor1";
 import Magicquatturo2 from "./product/Magicquatturo2";
+import Post from "./board/Post";
 
 const router = createBrowserRouter([
   {
@@ -35,8 +36,8 @@ const router = createBrowserRouter([
     element: <News />,
   },
   {
-    path: "support",
-    element: <Support />,
+    path: "board",
+    element: <Board />,
   },
   {
     path: "login",
@@ -47,17 +48,21 @@ const router = createBrowserRouter([
     element: <Signup />,
   },
   {
+    path: "post",
+    element: <Post />,
+  },
+  {
     path: "quadstar",
-    element: <Quadstar/>,
+    element: <Quadstar />,
   },
   {
     path: "quatturo1",
-    element: <Magicquatturo1/>
+    element: <Magicquatturo1 />,
   },
   {
     path: "quatturo2",
-    element: <Magicquatturo2/>
-  }
+    element: <Magicquatturo2 />,
+  },
 ]);
 
 const App = () => {
