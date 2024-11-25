@@ -10,7 +10,7 @@ const StyledBoard = styled.div`
     background: #ffffff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
-    font-family: 'Arial', sans-serif;
+    font-family: "Arial", sans-serif;
     color: #2c2c2c;
 
     a {
@@ -55,7 +55,7 @@ const StyledBoard = styled.div`
         border-radius: 20%;
         background-color: #f2f2f2;
         color: #585858;
-        border: none; 
+        border: none;
         transition: all 0.3s ease-in-out;
 
         &:hover {
@@ -72,8 +72,6 @@ const StyledBoard = styled.div`
     }
   }
 `;
-
-
 
 const Board = () => {
   const [allPosts, setAllPosts] = useState([]);
@@ -103,6 +101,10 @@ const Board = () => {
     setPage(page);
   };
 
+  useEffect(() => {
+    fetch();
+  });
+
   return (
     <StyledBoard>
       <div className="boardContainer">
@@ -119,7 +121,11 @@ const Board = () => {
         <div className="pagenation">
           <div className="inner">
             {[...Array(Math.ceil(allPosts.length / 10))].map((_, i) => (
-              <div key={i+1} className={`num ${page === i+1 ? "active" : ""}`} onClick={() => handlePagenation(i + 1)}>
+              <div
+                key={i + 1}
+                className={`num ${page === i + 1 ? "active" : ""}`}
+                onClick={() => handlePagenation(i + 1)}
+              >
                 {i + 1}
               </div>
             ))}
