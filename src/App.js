@@ -13,6 +13,7 @@ import Quadstar from "./product/Quadstar";
 import Magicquatturo1 from "./product/Magicquattuor1";
 import Magicquatturo2 from "./product/Magicquatturo2";
 import Post from "./board/Post";
+import MapView from "./menu/MapView";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
   {
     path: "quatturo2",
     element: <Magicquatturo2 />,
+  },
+  {
+    path: "mapView",
+    element: <MapView />,
   },
 ]);
 
