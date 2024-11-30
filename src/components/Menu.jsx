@@ -36,8 +36,8 @@ const Menu = () => {
         <h5>제품 소개</h5>
       </a>
 
-      <a href="/stores">
-        <h5>대여점</h5>
+      <a href="/bikemap">
+        <h5>자전거 맵</h5>
       </a>
 
       <a href="/news">

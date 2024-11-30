@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom"; // useNavigate 추가
+import { useNavigate } from "react-router-dom";
 import { customAxios } from "../customAxios";
 
 const StyledPost = styled.div`
@@ -107,45 +107,29 @@ const StyledPost = styled.div`
   }
 `;
 
-const Post = () => {
-  const [searchParams] = useSearchParams();
-  const [editMode, setEditMode] = useState(false);
+const WritePost = () => {
   const [title, setTitle] = useState();
-  const [date, setDate] = useState();
   const [content, setContent] = useState();
-  const [editTitle, setEditTitle] = useState();
-  const [editContent, setEditContent] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
-    customAxios.get(`posts/${searchParams.get("id")}`).then((res) => {
-      const data = res.data;
-      setTitle(data.title);
-      setDate(data.createdAt);
-      setContent(data.content);
-    });
+    setTitle("포스트 제목");
+    setContent("포스트 내용");
   }, []);
-
-  const handleEditStart = () => {
-    setEditTitle(title);
-    setEditContent(content);
-    setEditMode(true);
-  };
 
   const handleEditFinish = () => {
     customAxios
-      .put(`posts/${searchParams.get("id")}`, { title, content })
+      .post("/posts", { title, content, author: "anonymous" })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-    setEditMode(false);
   };
 
   const handleEditTitleChange = (e) => {
-    setEditTitle(e.target.value);
+    setTitle(e.target.value);
   };
 
   const handleEditContentChange = (e) => {
-    setEditContent(e.target.value);
+    setContent(e.target.value);
   };
 
   const handleBackToBoard = () => {
@@ -155,34 +139,22 @@ const Post = () => {
   return (
     <StyledPost>
       <div className="boardContainer">
-        {editMode ? (
-          <input
-            className="editTitle"
-            defaultValue={title}
-            onChange={handleEditTitleChange}
-          />
-        ) : (
-          <h1>{title}</h1>
-        )}
-        <p>{date}</p>
-        {editMode ? (
-          <textarea
-            className="editContent"
-            defaultValue={content}
-            rows={20}
-            onChange={handleEditContentChange}
-          />
-        ) : (
-          <p>{content}</p>
-        )}
+        <input
+          className="editTitle"
+          defaultValue={title}
+          onChange={handleEditTitleChange}
+        />
+        <textarea
+          className="editContent"
+          defaultValue={content}
+          rows={20}
+          onChange={handleEditContentChange}
+        />
         <div className="buttonContainer">
-          {editMode ? (
-            <button onClick={handleEditFinish}>수정 완료</button>
-          ) : (
-            <button onClick={handleEditStart}>포스트 수정</button>
-          )}
+          <button onClick={handleEditFinish}>게시글 등록</button>
+
           <button className="listButton" onClick={handleBackToBoard}>
-            목록
+            취소
           </button>
         </div>
       </div>
@@ -190,4 +162,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default WritePost;

@@ -4,7 +4,6 @@ import Home from "./menu/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import About from "./menu/About";
 import Products from "./menu/Products";
-import Stores from "./menu/Stores";
 import News from "./menu/News";
 import Board from "./menu/Board";
 import Signup from "./menu/Signup";
@@ -14,6 +13,8 @@ import Magicquatturo1 from "./product/Magicquattuor1";
 import Magicquatturo2 from "./product/Magicquatturo2";
 import Post from "./board/Post";
 import MapView from "./menu/MapView";
+import BikeMap from "./menu/BikeMap";
+import WritePost from "./board/WritePost";
 
 const router = createBrowserRouter([
   {
@@ -29,8 +30,8 @@ const router = createBrowserRouter([
     element: <Products />,
   },
   {
-    path: "stores",
-    element: <Stores />,
+    path: "bikemap",
+    element: <BikeMap />,
   },
   {
     path: "news",
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
   {
     path: "post",
     element: <Post />,
+  },
+  {
+    path: "writePost",
+    element: <WritePost />,
   },
   {
     path: "quadstar",

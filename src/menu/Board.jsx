@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import PostElement from "../board/PostElement";
 import { useEffect, useState } from "react";
+import { customAxios } from "../customAxios";
 
 const StyledBoard = styled.div`
   .boardContainer {
@@ -10,7 +11,7 @@ const StyledBoard = styled.div`
     background: #ffffff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
-    font-family: 'Arial', sans-serif;
+    font-family: "Arial", sans-serif;
     color: #2c2c2c;
 
     a {
@@ -30,6 +31,29 @@ const StyledBoard = styled.div`
         background-color: #e6f3ff;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         cursor: pointer;
+      }
+    }
+
+    .writePostContainer {
+      display: flex;
+      flex-direction: colunn;
+      margin-top: 20px;
+      a {
+        margin: 0 0 0 auto;
+        background: white;
+        .writePost {
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          height: 40px;
+          width: 120px;
+          font-size: 18px;
+          border-radius: 5px;
+          text-align: center;
+          background-color: #a9d0f5;
+          color: white;
+          justify-content: center;
+          display: flex;
+          flex-direction: column;
+        }
       }
     }
   }
@@ -55,7 +79,7 @@ const StyledBoard = styled.div`
         border-radius: 20%;
         background-color: #f2f2f2;
         color: #585858;
-        border: none; 
+        border: none;
         transition: all 0.3s ease-in-out;
 
         &:hover {
@@ -73,26 +97,19 @@ const StyledBoard = styled.div`
   }
 `;
 
-
-
 const Board = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState();
 
   useEffect(() => {
-    let arr = [];
-    for (let i = 0; i < 24; i++) {
-      arr.push([
-        i,
-        `안녕하세요`,
-        Math.floor(Math.random() * 10),
-        `2025.01.${i + 1 < 10 ? "0" + (i + 1) : i + 1}`,
-      ]);
-    }
-    arr = arr.reverse();
-    setAllPosts(arr);
-    setPage(1);
+    customAxios
+      .get("/posts")
+      .then((res) => {
+        setAllPosts(res.data.reverse());
+        setPage(1);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
@@ -106,24 +123,28 @@ const Board = () => {
   return (
     <StyledBoard>
       <div className="boardContainer">
-        {posts.map(([...props]) => (
-          <a href={`/post?id=${props[0]}`}>
-            <PostElement
-              id={props[0]}
-              title={props[1]}
-              numOfComments={props[2]}
-              date={props[3]}
-            />
+        {posts.map(({ author, content, createdAt, title, _id }, i) => (
+          <a key={i} href={`/post?id=${_id}`}>
+            <PostElement title={title} numOfComments={2} date={createdAt} />
           </a>
         ))}
         <div className="pagenation">
           <div className="inner">
             {[...Array(Math.ceil(allPosts.length / 10))].map((_, i) => (
-              <div key={i+1} className={`num ${page === i+1 ? "active" : ""}`} onClick={() => handlePagenation(i + 1)}>
+              <div
+                key={i + 1}
+                className={`num ${page === i + 1 ? "active" : ""}`}
+                onClick={() => handlePagenation(i + 1)}
+              >
                 {i + 1}
               </div>
             ))}
           </div>
+        </div>
+        <div className="writePostContainer">
+          <a href="/writePost">
+            <div className="writePost">게시글 작성</div>
+          </a>
         </div>
       </div>
     </StyledBoard>
