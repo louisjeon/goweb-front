@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import MapView from "./MapView";
+import { createLatLngArray } from "./MapView";
 
 const Container = styled.div`
   display: flex;
@@ -127,42 +128,28 @@ const Button = styled.button`
 `;
 
 const BikeMap = () => {
+  const [titles, setTitle] = useState([]);
+  const [index, setIndex] = useState(0);
+
+  const loadTitle = (titles) => {
+    setTitle(titles);
+    
+  }
   return (
     <Container>
       <Title>자전거 길 찾기</Title>
       <Search placeholder="찾고자하는 지역을 입력해주세요" />
       <Wrapper>
         <MapViewWrapper>
-          <MapView />
+          <MapView propFunction = {loadTitle} index = {index}/>
         </MapViewWrapper>
         <ContentWrapper>
-          <Content>
-            <P className="title">한강 자전거길</P>
-            <P className="position">서울특별시 00동 00구 ~~~~</P>
-            <P className="phone">000-000-0000</P>
-          </Content>
-          <Content>
-            <P className="title">전북대 자전거길</P>
-            <P className="position">
-              세종특별자치시 조치원읍 새내2길 42 세종 조치원읍 남리 360
-            </P>
-            <P className="phone">000-000-0000</P>
-          </Content>
-          <Content>
-            <P className="title">광안리 자전거길</P>
-            <P className="position">
-              세종특별자치시 조치원읍 새내2길 42 세종 조치원읍 남리 360
-            </P>
-            <P className="phone">000-000-0000</P>
-          </Content>
-          <Content>
-            <P className="title">강릉 자전거길</P>
-            <P className="position">
-              세종특별자치시 조치원읍 새내2길 42 세종 조치원읍 남리 360
-            </P>
-            <P className="phone">000-000-0000</P>
-          </Content>
-        </ContentWrapper>
+          {titles.map((title, index) => (
+            <Content key = {index}>
+              <P className="title" id = {index} onClick={()=> setIndex(index)}>{title}</P>
+            </Content>
+          ))}
+      </ContentWrapper>
       </Wrapper>
       <ButtonWrapper>
         <Button>이전</Button>
