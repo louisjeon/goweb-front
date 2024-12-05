@@ -11,7 +11,7 @@ const MapView = (props) => {
     const [maps, setMaps] = useState();
     useEffect(() => {
         axios
-        .get("http://localhost:4000/bikemap")
+        .get("http://goweb-backend.vercel.app/bikemap")
         .then((res) => {
             const titles = res.data.map((item) => item.title);
             const mapsXY = res.data.map((item) => item.coordinates);
