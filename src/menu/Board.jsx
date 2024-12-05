@@ -121,10 +121,6 @@ const Board = () => {
     setPage(page);
   };
 
-  useEffect(() => {
-    fetch();
-  });
-
   return (
     <StyledBoard>
       <div className="boardContainer">
