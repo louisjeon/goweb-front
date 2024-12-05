@@ -119,7 +119,7 @@ const WritePost = () => {
 
   const handleEditFinish = () => {
     customAxios
-      .post("/posts", { title, content, author: "anonymous" })
+      .post("/test", { title, content, author: "anonymous" })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
