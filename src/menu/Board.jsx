@@ -106,6 +106,7 @@ const Board = () => {
     customAxios
       .get("/posts")
       .then((res) => {
+        console.log(res);
         setAllPosts(res.data.reverse());
         setPage(1);
       })
