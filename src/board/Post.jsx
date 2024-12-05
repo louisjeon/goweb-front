@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom"; // useNavigate 추가
 import { customAxios } from "../customAxios";
+import CommentElement from "./CommentElement";
 
 const StyledPost = styled.div`
   .boardContainer {
@@ -62,6 +63,7 @@ const StyledPost = styled.div`
       display: flex;
       gap: 10px;
       justify-content: center;
+      margin-bottom: 20px;
     }
 
     button {
@@ -185,6 +187,11 @@ const Post = () => {
             목록
           </button>
         </div>
+        <CommentElement
+          writer="김철수"
+          content="ㅋㅋㅋㅋㅋㅋㅋㅋ"
+          date="2024.01.01"
+        />
       </div>
     </StyledPost>
   );
