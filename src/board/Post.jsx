@@ -184,6 +184,16 @@ const Post = () => {
       .catch((err) => console.log(err));
   };
 
+  const handleDeletePost = () => {
+    customAxios
+      .delete(`/posts/${postId}`)
+      .then((res) => {
+        console.log(res);
+        handleBackToBoard();
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <StyledPost>
       <div className="boardContainer">
@@ -196,7 +206,7 @@ const Post = () => {
         ) : (
           <h1>{title}</h1>
         )}
-        <p>{date}</p>
+        <p>작성일: {date?.split("T").join(" ").split(".")[0]}</p>
         {editMode ? (
           <textarea
             className="editContent"
@@ -211,7 +221,10 @@ const Post = () => {
           {editMode ? (
             <button onClick={handleEditFinish}>수정 완료</button>
           ) : (
-            <button onClick={handleEditStart}>포스트 수정</button>
+            <>
+              <button onClick={handleEditStart}>포스트 수정</button>
+              <button onClick={handleDeletePost}>포스트 삭제</button>
+            </>
           )}
           <button className="listButton" onClick={handleBackToBoard}>
             목록

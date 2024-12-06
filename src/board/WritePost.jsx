@@ -127,7 +127,10 @@ const WritePost = () => {
           _id: "6741d1871d24c3c672c974a6",
         },
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        handleBackToBoard();
+      })
       .catch((err) => console.log(err));
   };
 

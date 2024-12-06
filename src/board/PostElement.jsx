@@ -31,7 +31,7 @@ const PostElement = ({ title, numOfComments, date }) => {
           {title}
           {numOfComments ? ` [${numOfComments}]` : null}
         </div>
-        <div className="date">{date}</div>
+        <div className="date">{date.split("T").join(" ").split(".")[0]}</div>
       </div>
     </StyledPostElement>
   );
