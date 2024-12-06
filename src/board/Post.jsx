@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom"; // useNavigate 추가
 import { customAxios } from "../customAxios";
 import CommentElement from "./CommentElement";
+import WriteCommentElement from "./WriteCommentElement";
 
 const StyledPost = styled.div`
   .boardContainer {
@@ -113,20 +114,34 @@ const Post = () => {
   const [searchParams] = useSearchParams();
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState();
+  const [author, setAuthor] = useState();
+  const [postId, setPostId] = useState();
   const [date, setDate] = useState();
   const [content, setContent] = useState();
   const [editTitle, setEditTitle] = useState();
   const [editContent, setEditContent] = useState();
+  const [comments, setComments] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     customAxios.get(`posts/${searchParams.get("id")}`).then((res) => {
       const data = res.data;
       setTitle(data.title);
+      setAuthor(data.author);
+      setPostId(data._id);
       setDate(data.createdAt);
       setContent(data.content);
     });
-  }, []);
+  }, [editMode]);
+
+  useEffect(() => {
+    customAxios
+      .get(`comments/${searchParams.get("id")}`)
+      .then((res) => {
+        setComments(res.data);
+      })
+      .catch((err) => console.log(err));
+  });
 
   const handleEditStart = () => {
     setEditTitle(title);
@@ -136,10 +151,15 @@ const Post = () => {
 
   const handleEditFinish = () => {
     customAxios
-      .put(`posts/${searchParams.get("id")}`, { title, content })
-      .then((res) => console.log(res))
+      .put(`posts/${searchParams.get("id")}`, {
+        title: editTitle,
+        content: editContent,
+      })
+      .then((res) => {
+        console.log(res);
+        setEditMode(false);
+      })
       .catch((err) => console.log(err));
-    setEditMode(false);
   };
 
   const handleEditTitleChange = (e) => {
@@ -152,6 +172,16 @@ const Post = () => {
 
   const handleBackToBoard = () => {
     navigate("/board");
+  };
+
+  const updateComments = () => {
+    customAxios
+      .get(`/comments/${postId}`)
+      .then((res) => {
+        console.log(res.data);
+        setComments(res.data);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -187,10 +217,19 @@ const Post = () => {
             목록
           </button>
         </div>
-        <CommentElement
-          writer="김철수"
-          content="ㅋㅋㅋㅋㅋㅋㅋㅋ"
-          date="2024.01.01"
+        {comments.map((comment, i) => {
+          return (
+            <CommentElement
+              key={i}
+              comment={comment}
+              updateComments={updateComments}
+            />
+          );
+        })}
+        <WriteCommentElement
+          author={author}
+          postId={postId}
+          updateComments={updateComments}
         />
       </div>
     </StyledPost>

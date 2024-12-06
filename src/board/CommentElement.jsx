@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { customAxios } from "../customAxios";
 
 const StyledCommentElement = styled.div`
   width: 100%;
@@ -16,21 +17,48 @@ const StyledCommentElement = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 0 20px;
+    padding: 0 10px;
     font-family: "Arial", sans-serif;
     font-size: 14px;
     color: #333333;
+
+    .right {
+      display: flex;
+      .date {
+        margin-right: 10px;
+      }
+    }
   }
 `;
 
-const CommentElement = ({ writer, content, date }) => {
+const CommentElement = ({ comment, updateComments }) => {
+  const handleDeleteComment = () => {
+    customAxios
+      .delete(`/comments/${comment._id}`)
+      .then((res) => {
+        console.log(res);
+        updateComments();
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <StyledCommentElement>
       <div className="inner">
         <div className="comment">
-          <b>{writer}</b>: {content}
+          <b>{comment.author.email}</b>: {comment.content}
         </div>
-        <div className="date">{date}</div>
+        <div className="right">
+          <div className="date">
+            {comment.createdAt
+              .split("T")
+              .join(" ")
+              .split(":")
+              .slice(0, 2)
+              .join(":")}
+          </div>
+          <button onClick={handleDeleteComment}>댓글 삭제</button>
+        </div>
       </div>
     </StyledCommentElement>
   );
