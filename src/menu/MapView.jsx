@@ -8,6 +8,7 @@ const MapView = (props) => {
     return maps[index].map((coord) => new kakao.maps.LatLng(coord.x, coord.y));
   }
   const [maps, setMaps] = useState();
+
   useEffect(() => {
     customAxios
       .get("/bikemap")
@@ -19,6 +20,7 @@ const MapView = (props) => {
       })
       .catch((err) => console.log(err));
   }, []);
+
   useEffect(() => {
     let lat = 126;
     let long = 126;

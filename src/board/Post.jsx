@@ -194,6 +194,10 @@ const Post = () => {
       .catch((err) => console.log(err));
   };
 
+  const handleEditCancel = () => {
+    setEditMode(false);
+  };
+
   return (
     <StyledPost>
       <div className="boardContainer">
@@ -219,7 +223,10 @@ const Post = () => {
         )}
         <div className="buttonContainer">
           {editMode ? (
-            <button onClick={handleEditFinish}>수정 완료</button>
+            <>
+              <button onClick={handleEditFinish}>수정 완료</button>
+              <button onClick={handleEditCancel}>취소</button>
+            </>
           ) : (
             <>
               <button onClick={handleEditStart}>포스트 수정</button>
@@ -230,20 +237,23 @@ const Post = () => {
             목록
           </button>
         </div>
-        {comments.map((comment, i) => {
-          return (
-            <CommentElement
-              key={i}
-              comment={comment}
-              updateComments={updateComments}
-            />
-          );
-        })}
-        <WriteCommentElement
-          author={author}
-          postId={postId}
-          updateComments={updateComments}
-        />
+        {!editMode &&
+          comments.map((comment, i) => {
+            return (
+              <CommentElement
+                key={i}
+                comment={comment}
+                updateComments={updateComments}
+              />
+            );
+          })}
+        {!editMode && (
+          <WriteCommentElement
+            author={author}
+            postId={postId}
+            updateComments={updateComments}
+          />
+        )}
       </div>
     </StyledPost>
   );
