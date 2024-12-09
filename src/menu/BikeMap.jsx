@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-import map from "../img/map.jpg";
+import MapView from "./MapView";
+import { createLatLngArray } from "./MapView";
 
 const Container = styled.div`
   display: flex;
@@ -55,8 +56,11 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const Map = styled.img`
-  width: calc(80%);
+const MapViewWrapper = styled.div`
+  width: 90vw;
+  height: 500px;
+  overflow: hidden;
+  border: 2px solid black;
   @media screen and (min-width: 768px) {
     width: calc(40%);
     margin-right: 20px;
@@ -123,43 +127,29 @@ const Button = styled.button`
   }
 `;
 
-const Stores = () => {
+const BikeMap = () => {
+  const [titles, setTitle] = useState([]);
+  const [index, setIndex] = useState(0);
+
+  const loadTitle = (titles) => {
+    setTitle(titles);
+    
+  }
   return (
     <Container>
-      <Title>대리점 찾기</Title>
+      <Title>자전거 길 찾기</Title>
       <Search placeholder="찾고자하는 지역을 입력해주세요" />
       <Wrapper>
-        <Map src={map} />
+        <MapViewWrapper>
+          <MapView propFunction = {loadTitle} index = {index}/>
+        </MapViewWrapper>
         <ContentWrapper>
-          <Content>
-            <P className="title">KS조치원점</P>
-            <P className="position">
-              세종특별자치시 조치원읍 새내2길 42 세종 조치원읍 남리 360
-            </P>
-            <P className="phone">000-000-0000</P>
-          </Content>
-          <Content>
-            <P className="title">KS조치원점</P>
-            <P className="position">
-              세종특별자치시 조치원읍 새내2길 42 세종 조치원읍 남리 360
-            </P>
-            <P className="phone">000-000-0000</P>
-          </Content>
-          <Content>
-            <P className="title">KS조치원점</P>
-            <P className="position">
-              세종특별자치시 조치원읍 새내2길 42 세종 조치원읍 남리 360
-            </P>
-            <P className="phone">000-000-0000</P>
-          </Content>
-          <Content>
-            <P className="title">KS조치원점</P>
-            <P className="position">
-              세종특별자치시 조치원읍 새내2길 42 세종 조치원읍 남리 360
-            </P>
-            <P className="phone">000-000-0000</P>
-          </Content>
-        </ContentWrapper>
+          {titles.map((title, index) => (
+            <Content key = {index}>
+              <P className="title" id = {index} onClick={()=> setIndex(index)}>{title}</P>
+            </Content>
+          ))}
+      </ContentWrapper>
       </Wrapper>
       <ButtonWrapper>
         <Button>이전</Button>
@@ -170,4 +160,4 @@ const Stores = () => {
   );
 };
 
-export default Stores;
+export default BikeMap;
