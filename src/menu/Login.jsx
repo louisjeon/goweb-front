@@ -27,6 +27,7 @@ const Login = () => {
           })
           .catch((err) => {
             setError("유저를 찾을 수 없습니다.");
+            console.log(err);
           })
           .catch((err) => console.log(err));
       } else {
