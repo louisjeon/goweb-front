@@ -25,6 +25,9 @@ const Login = () => {
               navigate("/");
             }
           })
+          .catch((err) => {
+            setError("유저를 찾을 수 없습니다.");
+          })
           .catch((err) => console.log(err));
       } else {
         setError("패스워드는 8자 이상이어야 합니다.");
