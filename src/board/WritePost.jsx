@@ -119,8 +119,18 @@ const WritePost = () => {
 
   const handleEditFinish = () => {
     customAxios
-      .post("/posts", { title, content, author: "anonymous" })
-      .then((res) => console.log(res))
+      .post("/posts", {
+        title,
+        content,
+        author: {
+          email: "testuser@example.com",
+          _id: "6741d1871d24c3c672c974a6",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        handleBackToBoard();
+      })
       .catch((err) => console.log(err));
   };
 

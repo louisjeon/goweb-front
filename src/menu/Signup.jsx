@@ -16,7 +16,7 @@ const Signup = () => {
         if (password === password2) {
           setError(null);
           customAxios
-            .post("/signup", {
+            .post("/users/signup", {
               email,
               password,
             })

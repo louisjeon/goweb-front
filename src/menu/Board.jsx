@@ -106,6 +106,7 @@ const Board = () => {
     customAxios
       .get("/posts")
       .then((res) => {
+        console.log(res);
         setAllPosts(res.data.reverse());
         setPage(1);
       })
@@ -120,16 +121,16 @@ const Board = () => {
     setPage(page);
   };
 
-  useEffect(() => {
-    fetch();
-  });
-
   return (
     <StyledBoard>
       <div className="boardContainer">
-        {posts.map(({ author, content, createdAt, title, _id }, i) => (
+        {posts.map(({ author, comments, createdAt, title, _id }, i) => (
           <a key={i} href={`/post?id=${_id}`}>
-            <PostElement title={title} numOfComments={2} date={createdAt} />
+            <PostElement
+              title={title}
+              numOfComments={comments.length}
+              date={createdAt}
+            />
           </a>
         ))}
         <div className="pagenation">

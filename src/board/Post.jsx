@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom"; // useNavigate 추가
 import { customAxios } from "../customAxios";
+import CommentElement from "./CommentElement";
+import WriteCommentElement from "./WriteCommentElement";
 
 const StyledPost = styled.div`
   .boardContainer {
@@ -62,6 +64,7 @@ const StyledPost = styled.div`
       display: flex;
       gap: 10px;
       justify-content: center;
+      margin-bottom: 20px;
     }
 
     button {
@@ -111,20 +114,34 @@ const Post = () => {
   const [searchParams] = useSearchParams();
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState();
+  const [author, setAuthor] = useState();
+  const [postId, setPostId] = useState();
   const [date, setDate] = useState();
   const [content, setContent] = useState();
   const [editTitle, setEditTitle] = useState();
   const [editContent, setEditContent] = useState();
+  const [comments, setComments] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     customAxios.get(`posts/${searchParams.get("id")}`).then((res) => {
       const data = res.data;
       setTitle(data.title);
+      setAuthor(data.author);
+      setPostId(data._id);
       setDate(data.createdAt);
       setContent(data.content);
     });
-  }, []);
+  }, [editMode]);
+
+  useEffect(() => {
+    customAxios
+      .get(`comments/${searchParams.get("id")}`)
+      .then((res) => {
+        setComments(res.data);
+      })
+      .catch((err) => console.log(err));
+  });
 
   const handleEditStart = () => {
     setEditTitle(title);
@@ -134,10 +151,15 @@ const Post = () => {
 
   const handleEditFinish = () => {
     customAxios
-      .put(`posts/${searchParams.get("id")}`, { title, content })
-      .then((res) => console.log(res))
+      .put(`posts/${searchParams.get("id")}`, {
+        title: editTitle,
+        content: editContent,
+      })
+      .then((res) => {
+        console.log(res);
+        setEditMode(false);
+      })
       .catch((err) => console.log(err));
-    setEditMode(false);
   };
 
   const handleEditTitleChange = (e) => {
@@ -152,6 +174,30 @@ const Post = () => {
     navigate("/board");
   };
 
+  const updateComments = () => {
+    customAxios
+      .get(`/comments/${postId}`)
+      .then((res) => {
+        console.log(res.data);
+        setComments(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleDeletePost = () => {
+    customAxios
+      .delete(`/posts/${postId}`)
+      .then((res) => {
+        console.log(res);
+        handleBackToBoard();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleEditCancel = () => {
+    setEditMode(false);
+  };
+
   return (
     <StyledPost>
       <div className="boardContainer">
@@ -164,7 +210,7 @@ const Post = () => {
         ) : (
           <h1>{title}</h1>
         )}
-        <p>{date}</p>
+        <p>작성일: {date?.split("T").join(" ").split(".")[0]}</p>
         {editMode ? (
           <textarea
             className="editContent"
@@ -177,14 +223,37 @@ const Post = () => {
         )}
         <div className="buttonContainer">
           {editMode ? (
-            <button onClick={handleEditFinish}>수정 완료</button>
+            <>
+              <button onClick={handleEditFinish}>수정 완료</button>
+              <button onClick={handleEditCancel}>취소</button>
+            </>
           ) : (
-            <button onClick={handleEditStart}>포스트 수정</button>
+            <>
+              <button onClick={handleEditStart}>포스트 수정</button>
+              <button onClick={handleDeletePost}>포스트 삭제</button>
+            </>
           )}
           <button className="listButton" onClick={handleBackToBoard}>
             목록
           </button>
         </div>
+        {!editMode &&
+          comments.map((comment, i) => {
+            return (
+              <CommentElement
+                key={i}
+                comment={comment}
+                updateComments={updateComments}
+              />
+            );
+          })}
+        {!editMode && (
+          <WriteCommentElement
+            author={author}
+            postId={postId}
+            updateComments={updateComments}
+          />
+        )}
       </div>
     </StyledPost>
   );
