@@ -4,7 +4,7 @@ import { customAxios } from "../customAxios";
 
 const Login = () => {
   const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
