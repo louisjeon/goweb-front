@@ -7,28 +7,25 @@ const Login = () => {
   const [password, setPassword] = useState();
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const login = () => {
     if (emailRegex.test(email)) {
       if (password.length >= 8) {
-        if (password === password2) {
-          setError(null);
-          customAxios
-            .post("/users/login", {
-              email,
-              password,
-            })
-            .then((res) => {
-              console.log(res);
-              if (res.status == 200) {
-                localStorage.setItem("accessToken", res.data.accessToken);
-                navigate("/");
-              }
-            })
-            .catch((err) => console.log(err));
-        } else {
-          setError("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-        }
+        setError(null);
+        customAxios
+          .post("/users/login", {
+            email,
+            password,
+          })
+          .then((res) => {
+            console.log(res);
+            if (res.status == 200) {
+              localStorage.setItem("accessToken", res.data.accessToken);
+              navigate("/");
+            }
+          })
+          .catch((err) => console.log(err));
       } else {
         setError("패스워드는 8자 이상이어야 합니다.");
       }
