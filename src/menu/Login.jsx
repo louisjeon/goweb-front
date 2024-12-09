@@ -9,7 +9,7 @@ const Login = () => {
 
   const login = () => {
     customAxios
-      .post("/login", {
+      .post("/users/login", {
         email,
         password,
       })
