@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Home from "./menu/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -76,10 +76,22 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  const [login, setLogin] = useState({ isLoggedIn: false, accessToken: null });
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    console.log(token);
+    if (token) {
+      setLogin({ isLoggedIn: true, accessToken: token });
+    } else {
+      setLogin({ isLoggedIn: false, accessToken: null });
+    }
+  }, [localStorage.getItem("accessToken")]);
+
   return (
     <>
       <Header></Header>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} login={login} />
     </>
   );
 };

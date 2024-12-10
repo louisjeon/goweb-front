@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { GiHamburgerMenu } from "react-icons/gi";
 
 const MenuWrapper = styled.div`
   flex: 1;
@@ -22,8 +21,6 @@ const MenuWrapper = styled.div`
     color: gray;
   }
 `;
-
-const Hamburger = styled(GiHamburgerMenu)``;
 
 const Menu = () => {
   return (
