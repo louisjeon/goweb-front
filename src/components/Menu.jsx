@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useAuth } from "../AuthContext";
 
 const MenuWrapper = styled.div`
   flex: 1;
@@ -20,9 +21,16 @@ const MenuWrapper = styled.div`
   a:hover {
     color: gray;
   }
+
+  h5:hover {
+    cursor: pointer;
+  }
 `;
 
 const Menu = () => {
+  const { user, logout } = useAuth();
+  const [showLogout, setShowLogout] = useState(false);
+
   return (
     <MenuWrapper>
       <a href="/about">
@@ -44,10 +52,22 @@ const Menu = () => {
       <a href="/board">
         <h5>게시판</h5>
       </a>
-
-      <a href="/login">
-        <h5>로그인/회원가입</h5>
-      </a>
+      {user ? (
+        <>
+          <h5 onClick={() => setShowLogout(!showLogout)}>{user.email}님</h5>
+          {showLogout && (
+            <a href="/login">
+              <h5 id="logout" onClick={logout}>
+                로그아웃
+              </h5>
+            </a>
+          )}
+        </>
+      ) : (
+        <a href="/login">
+          <h5>로그인/회원가입</h5>
+        </a>
+      )}
     </MenuWrapper>
   );
 };

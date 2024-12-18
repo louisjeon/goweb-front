@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { customAxios } from "../customAxios";
+import { useAuth } from "../AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -8,8 +9,9 @@ const Login = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const { login } = useAuth();
 
-  const login = () => {
+  const handleLogin = () => {
     if (emailRegex.test(email)) {
       if (password.length >= 8) {
         setError(null);
@@ -20,8 +22,8 @@ const Login = () => {
           })
           .then((res) => {
             console.log(res);
-            if (res.status == 200) {
-              localStorage.setItem("accessToken", res.data.accessToken);
+            if (res.status === 200) {
+              login(res.data);
               navigate("/");
             }
           })
@@ -60,7 +62,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="button" onClick={login}>
+        <button type="button" onClick={handleLogin}>
           로그인
         </button>
         <button type="button" onClick={() => navigate("/signup")}>

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import PostElement from "../board/PostElement";
 import { useEffect, useState } from "react";
 import { customAxios } from "../customAxios";
+import { useAuth } from "../AuthContext";
 
 const StyledBoard = styled.div`
   .boardContainer {
@@ -101,6 +102,7 @@ const Board = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState();
+  const { user } = useAuth();
 
   useEffect(() => {
     customAxios
@@ -115,7 +117,7 @@ const Board = () => {
 
   useEffect(() => {
     setPosts(allPosts.slice((page - 1) * 10, page * 10));
-  }, [page]);
+  }, [page, allPosts]);
 
   const handlePagenation = (page) => {
     setPage(page);
@@ -124,11 +126,12 @@ const Board = () => {
   return (
     <StyledBoard>
       <div className="boardContainer">
-        {posts.map(({ author, comments, createdAt, title, _id }, i) => (
+        {posts.map(({ comments, createdAt, title, _id, author }, i) => (
           <a key={i} href={`/post?id=${_id}`}>
             <PostElement
               title={title}
               numOfComments={comments.length}
+              author={author}
               date={createdAt}
             />
           </a>
@@ -146,11 +149,13 @@ const Board = () => {
             ))}
           </div>
         </div>
-        <div className="writePostContainer">
-          <a href="/writePost">
-            <div className="writePost">게시글 작성</div>
-          </a>
-        </div>
+        {user && (
+          <div className="writePostContainer">
+            <a href="/writePost">
+              <div className="writePost">게시글 작성</div>
+            </a>
+          </div>
+        )}
       </div>
     </StyledBoard>
   );

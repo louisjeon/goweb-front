@@ -4,6 +4,7 @@ import { useSearchParams, useNavigate } from "react-router-dom"; // useNavigate 
 import { customAxios } from "../customAxios";
 import CommentElement from "./CommentElement";
 import WriteCommentElement from "./WriteCommentElement";
+import { useAuth } from "../AuthContext";
 
 const StyledPost = styled.div`
   .boardContainer {
@@ -50,14 +51,16 @@ const StyledPost = styled.div`
       font-size: 27px;
       font-weight: bold;
       color: #2c2c2c;
-      margin-bottom: 30px;
       margin-left: 30px;
     }
 
     p {
-      margin-bottom: 20px;
-      margin-left: 30px;
+      margin: 0 30px;
       color: #6e6e6e;
+    }
+
+    #content {
+      margin: 30px;
     }
 
     .buttonContainer {
@@ -122,6 +125,7 @@ const Post = () => {
   const [editContent, setEditContent] = useState();
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   useEffect(() => {
     customAxios.get(`posts/${searchParams.get("id")}`).then((res) => {
@@ -132,7 +136,7 @@ const Post = () => {
       setDate(data.createdAt);
       setContent(data.content);
     });
-  }, [editMode]);
+  }, [editMode, searchParams]);
 
   useEffect(() => {
     customAxios
@@ -141,7 +145,7 @@ const Post = () => {
         setComments(res.data);
       })
       .catch((err) => console.log(err));
-  });
+  }, [searchParams]);
 
   const handleEditStart = () => {
     setEditTitle(title);
@@ -210,6 +214,7 @@ const Post = () => {
         ) : (
           <h1>{title}</h1>
         )}
+        <p>작성자: {author?.email}</p>
         <p>작성일: {date?.split("T").join(" ").split(".")[0]}</p>
         {editMode ? (
           <textarea
@@ -219,7 +224,7 @@ const Post = () => {
             onChange={handleEditContentChange}
           />
         ) : (
-          <p>{content}</p>
+          <p id="content">{content}</p>
         )}
         <div className="buttonContainer">
           {editMode ? (
@@ -228,10 +233,14 @@ const Post = () => {
               <button onClick={handleEditCancel}>취소</button>
             </>
           ) : (
-            <>
-              <button onClick={handleEditStart}>포스트 수정</button>
-              <button onClick={handleDeletePost}>포스트 삭제</button>
-            </>
+            user &&
+            author &&
+            user.id === author._id && (
+              <>
+                <button onClick={handleEditStart}>포스트 수정</button>
+                <button onClick={handleDeletePost}>포스트 삭제</button>
+              </>
+            )
           )}
           <button className="listButton" onClick={handleBackToBoard}>
             목록
@@ -243,13 +252,14 @@ const Post = () => {
               <CommentElement
                 key={i}
                 comment={comment}
+                user={user}
                 updateComments={updateComments}
               />
             );
           })}
         {!editMode && (
           <WriteCommentElement
-            author={author}
+            user={user}
             postId={postId}
             updateComments={updateComments}
           />

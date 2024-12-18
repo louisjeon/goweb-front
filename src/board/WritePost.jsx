@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { customAxios } from "../customAxios";
+import { useAuth } from "../AuthContext";
 
 const StyledPost = styled.div`
   .boardContainer {
@@ -111,6 +112,7 @@ const WritePost = () => {
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   useEffect(() => {
     setTitle("포스트 제목");
@@ -122,10 +124,7 @@ const WritePost = () => {
       .post("/posts", {
         title,
         content,
-        author: {
-          email: "testuser@example.com",
-          _id: "6741d1871d24c3c672c974a6",
-        },
+        author: { email: user.email, _id: user.id },
       })
       .then((res) => {
         console.log(res);

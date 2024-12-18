@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { customAxios } from "../customAxios";
 import { ToastContainer, toast } from "react-toastify";
+import { useAuth } from "../AuthContext";
 
 const Signup = () => {
   const [email, setEmail] = useState();
@@ -9,6 +10,7 @@ const Signup = () => {
   const [password2, setPassword2] = useState();
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { login } = useAuth();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const signup = () => {
@@ -23,7 +25,7 @@ const Signup = () => {
             })
             .then((res) => {
               console.log(res);
-              if (res.status == 200) {
+              if (res.status === 200) {
                 toast("회원가입에 성공하였습니다.");
                 customAxios
                   .post("/users/login", {
@@ -32,14 +34,17 @@ const Signup = () => {
                   })
                   .then((res) => {
                     console.log(res);
-                    if (res.status == 200) {
-                      localStorage.setItem("accessToken", res.data.accessToken);
+                    if (res.status === 200) {
+                      login(res.data);
                       navigate("/");
                     }
                   });
               }
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+              console.log(err);
+              setError(err.response.data.error);
+            });
         } else {
           setError("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
         }

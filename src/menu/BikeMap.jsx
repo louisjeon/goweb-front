@@ -1,7 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import MapView from "./MapView";
-import { createLatLngArray } from "./MapView";
 
 const Container = styled.div`
   display: flex;
@@ -133,23 +132,24 @@ const BikeMap = () => {
 
   const loadTitle = (titles) => {
     setTitle(titles);
-    
-  }
+  };
   return (
     <Container>
       <Title>자전거 길 찾기</Title>
       <Search placeholder="찾고자하는 지역을 입력해주세요" />
       <Wrapper>
         <MapViewWrapper>
-          <MapView propFunction = {loadTitle} index = {index}/>
+          <MapView propFunction={loadTitle} index={index} />
         </MapViewWrapper>
         <ContentWrapper>
           {titles.map((title, index) => (
-            <Content key = {index}>
-              <P className="title" id = {index} onClick={()=> setIndex(index)}>{title}</P>
+            <Content key={index}>
+              <P className="title" id={index} onClick={() => setIndex(index)}>
+                {title}
+              </P>
             </Content>
           ))}
-      </ContentWrapper>
+        </ContentWrapper>
       </Wrapper>
       <ButtonWrapper>
         <Button>이전</Button>

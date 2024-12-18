@@ -19,7 +19,7 @@ const MapView = (props) => {
         props.propFunction(titles);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [props]);
 
   useEffect(() => {
     let lat = 126;
@@ -51,7 +51,8 @@ const MapView = (props) => {
     };
     const map = new kakao.maps.Map(container, options);
     polyline.setMap(map);
-  });
+  }, [maps, props.index]);
+
   return (
     <>
       <div

@@ -45,7 +45,7 @@ const StyledWriteCommentElement = styled.div`
   }
 `;
 
-const WriteCommentElement = ({ postId, author, updateComments }) => {
+const WriteCommentElement = ({ postId, user, updateComments }) => {
   const [comment, setComment] = useState("");
 
   const handleInputChange = (e) => {
@@ -58,7 +58,7 @@ const WriteCommentElement = ({ postId, author, updateComments }) => {
       .post("/comments", {
         content: comment,
         postId,
-        authorId: author._id,
+        authorId: user.id,
       })
       .then((res) => {
         console.log(res);
@@ -72,9 +72,17 @@ const WriteCommentElement = ({ postId, author, updateComments }) => {
     <StyledWriteCommentElement>
       <div className="inner">
         <div className="comment">
-          <b className="email">{author?.email}</b>
-          <input onChange={handleInputChange} value={comment} />
-          <button onClick={handleSubmit}>댓글 작성</button>
+          <b className="email">{user?.email}</b>
+          {user ? (
+            <input
+              onChange={handleInputChange}
+              value={comment}
+              placeholder="댓글을 작성해주세요."
+            />
+          ) : (
+            <p>댓글을 작성하려면 로그인 해 주세요.</p>
+          )}
+          {user && <button onClick={handleSubmit}>댓글 작성</button>}
         </div>
       </div>
     </StyledWriteCommentElement>

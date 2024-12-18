@@ -24,6 +24,7 @@ const StyledCommentElement = styled.div`
 
     .right {
       display: flex;
+      align-items: center;
       .date {
         margin-right: 10px;
       }
@@ -31,7 +32,7 @@ const StyledCommentElement = styled.div`
   }
 `;
 
-const CommentElement = ({ comment, updateComments }) => {
+const CommentElement = ({ comment, user, updateComments }) => {
   const handleDeleteComment = () => {
     customAxios
       .delete(`/comments/${comment._id}`)
@@ -57,7 +58,9 @@ const CommentElement = ({ comment, updateComments }) => {
               .slice(0, 2)
               .join(":")}
           </div>
-          <button onClick={handleDeleteComment}>댓글 삭제</button>
+          {user && comment && user.id === comment.author._id && (
+            <button onClick={handleDeleteComment}>댓글 삭제</button>
+          )}
         </div>
       </div>
     </StyledCommentElement>

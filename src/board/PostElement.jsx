@@ -23,15 +23,14 @@ const StyledPostElement = styled.div`
   }
 `;
 
-const PostElement = ({ title, numOfComments, date }) => {
+const PostElement = ({ title, author, date }) => {
   return (
     <StyledPostElement>
       <div className="inner">
-        <div className="title">
-          {title}
-          {numOfComments ? ` [${numOfComments}]` : null}
+        <div className="title">{title}</div>
+        <div className="date">
+          작성자: {author.email} | {date.split("T").join(" ").split(".")[0]}
         </div>
-        <div className="date">{date.split("T").join(" ").split(".")[0]}</div>
       </div>
     </StyledPostElement>
   );
