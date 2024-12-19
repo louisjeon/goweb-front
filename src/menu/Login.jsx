@@ -113,7 +113,7 @@ const StyledLogin = styled.div`
             transition: color 0.3s;
 
             &:hover {
-              color: #819ff7;
+              color: #819ff7; //색 확인
             }
           }
 
