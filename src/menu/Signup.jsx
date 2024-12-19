@@ -1,8 +1,162 @@
+import styled from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { customAxios } from "../customAxios";
 import { ToastContainer, toast } from "react-toastify";
 import { useAuth } from "../AuthContext";
+
+const StyledSignup = styled.div`
+  @import url('https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css');
+
+  @font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  * {
+    box-sizing: border-box;
+    font-family: 'GmarketSansMedium', sans-serif;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f7fc;
+  }
+
+  .signup {
+    width: 400px;
+    padding: 40px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    text-align: center;
+    color: #2c2c2c;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 20px auto;
+
+    h2 {
+      font-size: 24px; 
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    #signup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px; 
+
+      div {
+        width: 100%;
+        text-align: left;
+      }
+
+      div label {
+        font-size: 15px;
+        padding-left: 15px;
+        margin-bottom: 5px;
+      }
+
+      input {
+        width: 93%; 
+        height: 48px; 
+        padding: 0 10px; 
+        margin-bottom: 10px; 
+        border-radius: 12px;
+        background-color: #f2f2f2;
+        border: 1px solid #e0e0e0;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+        transition: border 0.3s;
+        display: block;
+        margin: 0 auto; 
+
+        &:focus {
+          border: 1px solid #5882fa;
+          outline: none;
+        }
+
+        &::placeholder {
+          color: #b0b0b0;
+        }
+      }
+
+      button {
+        width: 93%;
+        height: 48px;
+        color: #fff;
+        font-size: 16px; 
+        background-color: #819ff7;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        padding: 10px;
+        border-radius: 12px;
+        display: block;
+        margin: 0 auto; 
+
+        &:hover {
+          background-color: #5882fa;
+        }
+
+        &:active {
+          background-color: #5882fa;
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+
+    .option {
+      margin-top: 20px;
+
+      ul {
+        padding: 0;
+        margin: 0;
+        display: inline-flex;
+        justify-content: center;
+
+        li {
+          margin: 0 10px;
+
+          a {
+            font-size: 14px;
+            text-decoration: none;
+            color: #5882fa;
+            transition: color 0.3s;
+
+            &:hover {
+              color: #819ff7;
+            }
+          }
+
+          list-style: none;
+        }
+      }
+    }
+
+    .back-button {
+      display: inline-block;
+      font-size: 14px;
+      color: #5882fa;
+      cursor: pointer;
+      transition: color 0.3s;
+      text-decoration: none;
+
+      &:hover {
+        color: #819ff7;
+      }
+    }
+  }
+`;
 
 const Signup = () => {
   const [email, setEmail] = useState();
@@ -57,47 +211,51 @@ const Signup = () => {
   };
 
   return (
-    <>
-      <form action="/signup" method="post">
-        <div>
-          이메일
-          <input
-            name="email"
-            type="email"
-            required
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          비밀번호
-          <input
-            name="password"
-            type="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div>
-          비밀번호확인
-          <input
-            name="password"
-            type="password"
-            required
-            onChange={(e) => setPassword2(e.target.value)}
-          />
-        </div>
-        <button type="button" onClick={() => navigate("/login")}>
-          뒤로
-        </button>
-        <button type="button" onClick={signup}>
-          회원가입
-        </button>
-        <div style={{ color: "red" }}>{error}</div>
-      </form>
+    <StyledSignup>
+      <div className="signup">
+        <h2>회원가입</h2>
+        <form action="/signup" method="post" id="signup">
+          <div>
+            <label>이메일</label>
+            <input
+              name="email"
+              type="email"
+              placeholder="이메일"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>비밀번호</label>
+            <input
+              name="password"
+              type="password"
+              placeholder="비밀번호"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>비밀번호 확인</label>
+            <input
+              name="password"
+              type="password"
+              placeholder="비밀번호 확인"
+              required
+              onChange={(e) => setPassword2(e.target.value)}
+            />
+          </div>
+          <button type="button" onClick={signup}>
+            회원가입
+          </button>
+          <label className="back-button" onClick={() => navigate("/login")}>
+            뒤로
+          </label>
+          <div style={{ color: "red", textAlign: "center" }}>{error}</div>
+        </form>
+      </div>
       <ToastContainer />
-    </>
+    </StyledSignup>
   );
 };
 

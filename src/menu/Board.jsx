@@ -47,9 +47,9 @@ const StyledBoard = styled.div`
           height: 40px;
           width: 120px;
           font-size: 18px;
-          border-radius: 5px;
+          border-radius: 12px;
           text-align: center;
-          background-color: #a9d0f5;
+          background-color: #819ff7;
           color: white;
           justify-content: center;
           display: flex;
@@ -84,13 +84,13 @@ const StyledBoard = styled.div`
         transition: all 0.3s ease-in-out;
 
         &:hover {
-          background-color: #a9d0f5;
+          background-color: #819ff7;
           color: white;
           box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
         }
 
         &.active {
-          background-color: #a9d0f5;
+          background-color: #819ff7;
           color: white;
         }
       }

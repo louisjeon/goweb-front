@@ -15,22 +15,34 @@ const Title = styled.p`
   margin: 0;
   margin-top: 50px;
   font: bold 30px "arial";
-  color: #57abef;
+  color: #819ff7;
   @media screen and (min-width: 768px) {
     font-size: 40px;
   }
 `;
 
 const Search = styled.input`
-  margin: 30px 0;
-  padding-left: 10px;
-  width: calc(80%);
-  height: 40px;
-  border-radius: 5px;
-  font: bold 15px "arial";
-  border: 1px solid gray;
+  margin: 20px 0;
+  padding: 0 20px;
+  width: 85%;
+  max-width: 400px;
+  height: 48px;
+  border-radius: 12px;
+  font: 16px "arial";
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   @media screen and (min-width: 768px) {
-    width: calc(50%);
+    width: calc(37%);
+  }
+  background-color: #f2f2f2;
+  border: 1px solid #e0e0e0;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+  transition: border 0.3s;
+
+  &:focus {
+    border: 1px solid #5882fa;
+    outline: none;
   }
 `;
 
@@ -58,8 +70,11 @@ const ContentWrapper = styled.div`
 const MapViewWrapper = styled.div`
   width: 90vw;
   height: 500px;
+  max-width: 600px;
   overflow: hidden;
-  border: 2px solid black;
+  border: 1px solid black;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   @media screen and (min-width: 768px) {
     width: calc(40%);
     margin-right: 20px;
@@ -108,21 +123,26 @@ const P = styled.p`
 const ButtonWrapper = styled.div`
   width: auto;
   display: flex;
-  justify-content: space-between;
-  margin: 30px 0;
+  justify-content: center;
+  margin-top: 20px;
 `;
 
 const Button = styled.button`
-  margin: 0;
-  width: 80px;
-  height: 30px;
-  background: white;
-  border: 1px solid gray;
-  border-radius: 5px;
+  margin: 0 15px;
+  width: 100px;
+  height: 35px;
+  background: #ffffff;
+  border: 1px solid #5882fa;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
   &:hover {
     cursor: pointer;
-    background: gray;
-    border: transparent;
+    background: #9fb3f2;
+  }
+  &:active {
+  background-color: #9fb3f2;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 `;
 
@@ -136,7 +156,7 @@ const BikeMap = () => {
   return (
     <Container>
       <Title>자전거 길 찾기</Title>
-      <Search placeholder="찾고자하는 지역을 입력해주세요" />
+      <Search placeholder="찾고 싶은 지역을 입력해 주세요." />
       <Wrapper>
         <MapViewWrapper>
           <MapView propFunction={loadTitle} index={index} />
