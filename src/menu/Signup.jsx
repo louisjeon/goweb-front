@@ -6,21 +6,23 @@ import { ToastContainer, toast } from "react-toastify";
 import { useAuth } from "../AuthContext";
 
 const StyledSignup = styled.div`
-  @import url('https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css');
+  @import url("https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css");
 
   @font-face {
-    font-family: 'GmarketSansMedium';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-family: "GmarketSansMedium";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+      format("woff");
     font-weight: normal;
     font-style: normal;
   }
 
   * {
     box-sizing: border-box;
-    font-family: 'GmarketSansMedium', sans-serif;
+    font-family: "GmarketSansMedium", sans-serif;
   }
 
-  html, body {
+  html,
+  body {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -36,7 +38,7 @@ const StyledSignup = styled.div`
     padding: 40px;
     background: white;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     color: #2c2c2c;
     font-size: 16px;
@@ -44,7 +46,7 @@ const StyledSignup = styled.div`
     margin: 20px auto;
 
     h2 {
-      font-size: 24px; 
+      font-size: 24px;
       color: #333;
       margin-bottom: 20px;
       font-weight: bold;
@@ -54,7 +56,7 @@ const StyledSignup = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px; 
+      gap: 20px;
 
       div {
         width: 100%;
@@ -68,17 +70,17 @@ const StyledSignup = styled.div`
       }
 
       input {
-        width: 93%; 
-        height: 48px; 
-        padding: 0 10px; 
-        margin-bottom: 10px; 
+        width: 93%;
+        height: 48px;
+        padding: 0 10px;
+        margin-bottom: 10px;
         border-radius: 12px;
         background-color: #f2f2f2;
         border: 1px solid #e0e0e0;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
         transition: border 0.3s;
         display: block;
-        margin: 0 auto; 
+        margin: 0 auto;
 
         &:focus {
           border: 1px solid #5882fa;
@@ -94,22 +96,22 @@ const StyledSignup = styled.div`
         width: 93%;
         height: 48px;
         color: #fff;
-        font-size: 16px; 
-        background-color: #819ff7;
+        font-size: 16px;
+        background-color: #7db249;
         border: none;
         cursor: pointer;
         transition: background-color 0.3s;
         padding: 10px;
         border-radius: 12px;
         display: block;
-        margin: 0 auto; 
+        margin: 0 auto;
 
         &:hover {
-          background-color: #5882fa;
+          background-color: #d2ff7c;
         }
 
         &:active {
-          background-color: #5882fa;
+          background-color: #d2ff7c;
           box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
         }
       }
@@ -146,13 +148,13 @@ const StyledSignup = styled.div`
     .back-button {
       display: inline-block;
       font-size: 14px;
-      color: #5882fa;
+      color: #7db249;
       cursor: pointer;
       transition: color 0.3s;
       text-decoration: none;
 
       &:hover {
-        color: #819ff7;
+        color: #d2ff7c;
       }
     }
   }
