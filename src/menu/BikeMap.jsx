@@ -156,7 +156,7 @@ const BikeMap = () => {
   return (
     <Container>
       <Title>자전거 길 찾기</Title>
-      <Search placeholder="찾고 싶은 지역을 입력해 주세요." />
+      {/* <Search placeholder="찾고 싶은 지역을 입력해 주세요." /> */}
       <Wrapper>
         <MapViewWrapper>
           <MapView propFunction={loadTitle} index={index} />
