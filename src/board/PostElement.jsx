@@ -29,7 +29,7 @@ const PostElement = ({ title, author, date }) => {
       <div className="inner">
         <div className="title">{title}</div>
         <div className="date">
-          작성자: {author.email} | {date.split("T").join(" ").split(".")[0]}
+          작성자: {author?.email} | {date.split("T").join(" ").split(".")[0]}
         </div>
       </div>
     </StyledPostElement>

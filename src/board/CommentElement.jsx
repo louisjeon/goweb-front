@@ -3,7 +3,7 @@ import { customAxios } from "../customAxios";
 
 const StyledCommentElement = styled.div`
   width: 100%;
-  height: 40px;
+  min-height: 40px;
   display: flex;
   align-items: center;
   margin: 5px auto 5px auto;
