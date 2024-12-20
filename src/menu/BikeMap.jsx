@@ -15,7 +15,7 @@ const Title = styled.p`
   margin: 0;
   margin-top: 50px;
   font: bold 30px "arial";
-  color: #819ff7;
+  color: #7db249;
   @media screen and (min-width: 768px) {
     font-size: 40px;
   }
@@ -37,11 +37,11 @@ const Search = styled.input`
   }
   background-color: #f2f2f2;
   border: 1px solid #e0e0e0;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: border 0.3s;
 
   &:focus {
-    border: 1px solid #5882fa;
+    border: 1px solid #7db249;
     outline: none;
   }
 `;
@@ -141,8 +141,8 @@ const Button = styled.button`
     background: #9fb3f2;
   }
   &:active {
-  background-color: #9fb3f2;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    background-color: #9fb3f2;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   }
 `;
 
