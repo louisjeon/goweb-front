@@ -38,6 +38,9 @@ const StyledWriteCommentElement = styled.div`
         border: none;
         border-radius: 5px;
       }
+      input:focus {
+        outline: 2px solid #7db249;
+      }
       button {
         margin-left: 10px;
       }

@@ -29,7 +29,7 @@ const StyledBoard = styled.div`
       transition: all 0.3s ease-in-out;
 
       &:hover {
-        background-color: #e6f3ff;
+        background-color: #d2ff7c;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         cursor: pointer;
       }
@@ -49,8 +49,8 @@ const StyledBoard = styled.div`
           font-size: 18px;
           border-radius: 12px;
           text-align: center;
-          background-color: #819ff7;
-          color: white;
+          background-color: #d2ff7c;
+          color: #7db249;
           justify-content: center;
           display: flex;
           flex-direction: column;
@@ -84,13 +84,13 @@ const StyledBoard = styled.div`
         transition: all 0.3s ease-in-out;
 
         &:hover {
-          background-color: #819ff7;
+          background-color: #d2ff7c;
           color: white;
           box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
         }
 
         &.active {
-          background-color: #819ff7;
+          background-color: #d2ff7c;
           color: white;
         }
       }

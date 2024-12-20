@@ -5,21 +5,23 @@ import { customAxios } from "../customAxios";
 import { useAuth } from "../AuthContext";
 
 const StyledLogin = styled.div`
-  @import url('https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css');
+  @import url("https://cdn.jsdelivr.net/font-iropke-batang/1.2/font-iropke-batang.css");
 
   @font-face {
-    font-family: 'GmarketSansMedium';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-family: "GmarketSansMedium";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+      format("woff");
     font-weight: normal;
     font-style: normal;
   }
 
   * {
     box-sizing: border-box;
-    font-family: 'GmarketSansMedium', sans-serif;
+    font-family: "GmarketSansMedium", sans-serif;
   }
 
-  html, body {
+  html,
+  body {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -37,7 +39,6 @@ const StyledLogin = styled.div`
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    color: #2c2c2c;
     font-size: 16px;
     line-height: 1.6;
     margin: 20px auto;
@@ -73,17 +74,17 @@ const StyledLogin = styled.div`
           color: #b0b0b0;
         }
 
-        &[type='button'] {
+        &[type="button"] {
           color: #fff;
           font-size: 16px;
-          background-color: #819ff7;
+          background-color: #7db249;
           border: none;
           cursor: pointer;
           transition: background-color 0.3s;
           padding: 10px;
 
           &:hover {
-            background-color: #5882fa;
+            background-color: #d2ff7c;
           }
 
           &:active {
@@ -109,11 +110,11 @@ const StyledLogin = styled.div`
           a {
             font-size: 14px;
             text-decoration: none;
-            color: #5882fa;
+            color: #7db249;
             transition: color 0.3s;
 
             &:hover {
-              color: #819ff7; //색 확인
+              color: #d2ff7c;
             }
           }
 
@@ -123,8 +124,6 @@ const StyledLogin = styled.div`
     }
   }
 `;
-
-
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -164,47 +163,43 @@ const Login = () => {
 
   return (
     <StyledLogin>
-  <div className="login">
-    <h2>로그인</h2>
-    <form id="login" action="/login" method="post">
-      <div>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="이메일"
-          required
-          onChange={(e) => setEmail(e.target.value)}
-        />
+      <div className="login">
+        <h2>로그인</h2>
+        <form id="login" action="/login" method="post">
+          <div>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="이메일"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="비밀번호"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div>
+            <input type="button" value="로그인" onClick={handleLogin} />
+          </div>
+          <div className="option">
+            <ul>
+              <li>
+                <a onClick={() => navigate("/signup")}>회원가입</a>
+              </li>
+            </ul>
+          </div>
+          <div style={{ color: "red", textAlign: "center" }}>{error}</div>
+        </form>
       </div>
-      <div>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          placeholder="비밀번호"
-          required
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          type="button"
-          value="로그인"
-          onClick={handleLogin}
-        />
-      </div>
-      <div className="option">
-        <ul>
-          <li>
-            <a onClick={() => navigate("/signup")}>회원가입</a>
-          </li>
-        </ul>
-      </div>
-      <div style={{ color: "red", textAlign: "center" }}>{error}</div>
-    </form>
-  </div>
-</StyledLogin>
+    </StyledLogin>
   );
 };
 

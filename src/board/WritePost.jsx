@@ -69,7 +69,7 @@ const StyledPost = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #819ff7;
+      background-color: #7db249;
       color: white;
       border: none;
       border-radius: 12px;
@@ -82,23 +82,22 @@ const StyledPost = styled.div`
     }
 
     button:hover {
-      background-color: #5882fa;
+      background-color: #d2ff7c;
     }
 
     button:active {
-      background-color: #5882fa;
+      background-color: #d2ff7c;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
     }
 
     .listButton {
       background-color: white;
-      color: #819ff7;
-      border: 2px solid #819ff7;
+      color: #7db249;
+      border: 2px solid #7db249;
     }
 
     .listButton:hover {
-      background-color: #f2f2f2;
-      color: #5882fa;
+      background-color: #d2ff7c;
     }
 
     .listButton:active {
