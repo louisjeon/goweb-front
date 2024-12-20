@@ -3,13 +3,13 @@ import { customAxios } from "../customAxios";
 const { kakao } = window;
 
 const MapView = (props) => {
-  console.log(props);
   function createLatLngArray(maps, index) {
     return maps[index].map((coord) => new kakao.maps.LatLng(coord.x, coord.y));
   }
   const [maps, setMaps] = useState();
 
   useEffect(() => {
+    console.log("AA");
     customAxios
       .get("/bikemap")
       .then((res) => {
@@ -19,7 +19,7 @@ const MapView = (props) => {
         props.propFunction(titles);
       })
       .catch((err) => console.log(err));
-  }, [props]);
+  }, []);
 
   useEffect(() => {
     let lat = 126;
