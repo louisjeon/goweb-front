@@ -171,11 +171,6 @@ const BikeMap = () => {
           ))}
         </ContentWrapper>
       </Wrapper>
-      <ButtonWrapper>
-        <Button>이전</Button>
-        <P className="page">1 / 10</P>
-        <Button>다음</Button>
-      </ButtonWrapper>
     </Container>
   );
 };

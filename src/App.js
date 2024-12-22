@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "./components/Header";
 import Home from "./menu/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -15,7 +15,7 @@ import Post from "./board/Post";
 import MapView from "./menu/MapView";
 import BikeMap from "./menu/BikeMap";
 import WritePost from "./board/WritePost";
-import { AuthProvider, useAuth } from "./AuthContext";
+import { AuthProvider } from "./AuthContext";
 
 const router = createBrowserRouter([
   {
